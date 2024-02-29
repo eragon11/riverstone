@@ -9,4 +9,6 @@ router.get('/users', UserAuthController.verify, Users.getAllUser);
 //Add a new email
 router.post('/users/email/:emailId', UserAuthController.verify, Users.emailUser);
 
+router.post('/users/roleBased',UserAuthController.verify, UserAuthController.hasRole, Users.addUser);
+
 export default router;

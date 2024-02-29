@@ -44,4 +44,30 @@ UserController.emailUser = async (req, res) => {
     });
   }
 };
+
+UserController.addUser = async(req, res) =>{
+  try {
+    let payload = req.body;
+    let user ={
+      "user_name": payload.userName,
+      "email": payload.email,
+      "password": payload.password,
+      "is_admin": false,
+    }
+    let data = await UserService.addUser(user);
+    console.log(data)
+    res.send({
+      code: 200,
+      status: "success",
+      message: "Sucessfully added user"
+    });
+  } catch (error) {
+    logger.error("Error in adding user" + error);
+    res.send({
+      code: 400,
+      status: "error",
+      message: "Error in adding user"
+    });
+  }
+}
 export default UserController;

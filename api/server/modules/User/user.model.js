@@ -16,7 +16,7 @@ const UserSchema = mongoose.Schema({
     status: {
         type: String,
         enum: ['active', 'in_active', 'supended'],
-        default: "active"
+        default: "active",
     },
     is_admin: {
         type: Boolean,

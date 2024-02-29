@@ -131,6 +131,33 @@ const UserAuthController = {
         data: []
       });
     }
+  },
+  hasRole: async(req,res, next) =>{
+    let tokenSignature = req.headers["xauthtoken"];
+    if (tokenSignature != undefined) {
+      let token = await UserAuthService.verifyAndDecode(tokenSignature);
+      console.log("hasrole")
+      console.log(token);
+      console.log(token.data.is_admin)
+      req.userToken = token;
+      if(token.data.is_admin){
+        return next();
+      }else{
+        res.status(401).send({
+          status: "error",
+          code: 401,
+          message: "Authentication Failure",
+          data: {}
+        });
+      }
+    }else{
+      res.status(401).send({
+        status: "error",
+        code: 401,
+        message: "Authentication Failure",
+        data: {}
+      });
+    }
   }
 };
 
